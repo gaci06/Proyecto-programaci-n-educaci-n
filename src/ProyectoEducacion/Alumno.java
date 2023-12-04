@@ -3,7 +3,7 @@ package ProyectoEducacion;
 public class Alumno {
     private static int contadorAlumnos = 0;
 
-    private String idAlumno;
+    private String dniAlumno;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -12,42 +12,29 @@ public class Alumno {
     private String numeroDocumento;
     private String nombreCiclo;
 
-    public Alumno(String nombre, String primerApellido, String telefono, String email, String numeroDocumento, String nombreCiclo) {
-        this.setIdAlumno(generarIdAlumno());
+    public Alumno (String nombre, String primerApellido,String segundoApellido , String telefono, String email, String numeroDocumento, String nombreCiclo) {
+        this.getdniAlumno();
         this.setNombre(nombre);
         this.setPrimerApellido(primerApellido);
+        this.setSegundoApellido(segundoApellido);
         this.setTelefono(telefono);
         this.setEmail(email);
         this.setNumeroDocumento(numeroDocumento);
         this.setNombreCiclo(nombreCiclo);
-        this.setSegundoApellido("");
+        
     }
 
-    
-
-    public Alumno(String nombre2, String primerApellido2, String segundoApellido2, String telefono2, String email2,
-			String numeroDocumento2, String nombreCiclo2) {
-		
-	}
-
-
-
-	private String generarIdAlumno() {
+	public String getdniAlumno() {
         contadorAlumnos++;
         return "ALUM" + String.format("%04d", contadorAlumnos);
     }
 
+	
 
-
-	public String getIdAlumno() {
-		return idAlumno;
+	public void setDniAlumno(String dniAlumno) {
+		this.dniAlumno = dniAlumno;
 	}
-
-
-
-	public void setIdAlumno(String idAlumno) {
-		this.idAlumno = idAlumno;
-	}
+	
 
 
 
@@ -139,5 +126,15 @@ public class Alumno {
 		
 		return 0;
 	}
+
+
+
+	public Object getDni() {
+		
+		return null;
+	}
+
+
+
 	
 }

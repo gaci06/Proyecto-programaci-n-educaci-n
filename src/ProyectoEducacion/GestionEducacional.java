@@ -7,13 +7,14 @@ public class GestionEducacional {
     private static final int MAX_ALUMNOS = 60;
     private static final int MAX_ASIGNATURAS = 20;
     private static final int MAX_PROFESORES = 15;
+	private static final Object[] Profesor = null;
 
   
     private static Alumno[] alumnos = new Alumno[MAX_ALUMNOS];
     private static Asignatura[] asignaturas = new Asignatura[MAX_ASIGNATURAS];
     private static Profesor[] profesores = new Profesor[MAX_PROFESORES];
-	private int numAlumnos;
-
+	private static int numAlumnos;
+	private static int numProfesores;
     
     
     public static void main(String[] args) {
@@ -57,24 +58,20 @@ public class GestionEducacional {
     
 
  
-        private static void menuAlumnos(Alumno[] alumnos2, Scanner scanner) {
-	}
-
-
-
-		{
+    private static void menuAlumnos(Alumno[] alumnos, Scanner scanner) {
+        int opcion;
+        do {
             System.out.println("--------------------------------------------");
             System.out.println("Alumnos:");
             System.out.println("1. Añadir alumno.");
             System.out.println("2. Consultar datos de los alumnos.");
             System.out.println("3. Volver al menú principal.");
             System.out.println("--------------------------------------------");
-            System.out.println("OPCIÓN: ");
-          
-            Scanner scanner = new Scanner(System.in);
+            System.out.print("OPCIÓN: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
 
-            int opcion = 3;
-			switch (opcion) {
+            switch (opcion) {
                 case 1:
                     añadirAlumno(scanner);
                     break;
@@ -86,27 +83,29 @@ public class GestionEducacional {
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
-            
+            }
         } while (opcion != 3);
     }
+    
 
  
-    private void añadirAlumno(Scanner scanner) {
+    private static void añadirAlumno(Scanner scanner) { 
+    	int opción=0;
         if (numAlumnos < MAX_ALUMNOS) {
             System.out.println("Introduce los datos del alumno:");
-            System.out.print("Nombre: ");
+            System.out.print("Nombre(MAX 30 caracteres): ");
             String nombre = scanner.nextLine();
 
-            System.out.println("Primer Apellido: ");
+            System.out.println("Primer Apellido (MAX 40 caracteres): ");
             String primerApellido = scanner.nextLine();
 
             System.out.println("Segundo Apellido (opcional): ");
             String segundoApellido = scanner.nextLine();
 
-            System.out.println("Teléfono: ");
+            System.out.println("Teléfono([6, 7 u 9] y 8 números): ");
             String telefono = scanner.nextLine();
 
-            System.out.println("Email: ");
+            System.out.println("Email (email@alumno.es): ");
             String email = scanner.nextLine();
 
             System.out.println("Número de Documento (NIF o NIE): ");
@@ -125,11 +124,11 @@ public class GestionEducacional {
     }
 
     
-    private void consultarDatosAlumnos(Scanner scanner) {
+    private static void consultarDatosAlumnos(Scanner scanner) {
         if (numAlumnos > 0) {
             System.out.println("Listado de alumnos:");
             for (int i = 0; i < numAlumnos; i++) {
-                System.out.println((i + 1) + ". " + alumnos[i].getIdAlumno() + " # " + alumnos[i].getNombreCompleto());
+                System.out.println((i + 1) + ". " + alumnos[i].getDniAlumno() + " # " + alumnos[i].getNombreCompleto());
             }
 
             System.out.print("Escoger alumno (0: Volver al menú anterior): ");
@@ -138,7 +137,7 @@ public class GestionEducacional {
             if (seleccion > 0 && seleccion <= numAlumnos) {
                 Alumno alumnoSeleccionado = alumnos[seleccion - 1];
                 System.out.println("INFO ALUMNO:");
-                System.out.println("ID: " + alumnoSeleccionado.getIdAlumno());
+                System.out.println("DNI: " + alumnoSeleccionado.generardniAlumno());
                 System.out.println("Nombre: " + alumnoSeleccionado.getNombre());
                 System.out.println("Apellido1: " + alumnoSeleccionado.getPrimerApellido());
                 System.out.println("Apellido2: " + alumnoSeleccionado.getSegundoApellido());
@@ -156,8 +155,6 @@ public class GestionEducacional {
     
     
 
-
-
     public static void menuProfesores(Profesor[] profesores, Scanner scanner) {
         int opcion;
 
@@ -174,7 +171,7 @@ public class GestionEducacional {
 
             switch (opcion) {
                 case 1:
-                    añadirProfesor(profesores, scanner);
+                    agregarProfesor(scanner);
                     break;
                 case 2:
                     consultarDatosProfesores(profesores, scanner);
@@ -189,18 +186,12 @@ public class GestionEducacional {
     }
     
     
-	private static void añadirProfesor(Profesor[] profesores2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
-	}
+    
 
 
-
-	private static Profesor agregarProfesor() {
-        Scanner scanner = new Scanner(System.in);
-
+	private static Profesor agregarProfesor(Scanner scanner) {
         int contadorProfesores = 0;
-		if (contadorProfesores > MAX_PROFESORES) {
+        if (contadorProfesores > MAX_PROFESORES) {
             System.out.println("¡Se ha alcanzado el límite máximo de profesores!");
             return null;
         }
@@ -219,7 +210,7 @@ public class GestionEducacional {
         System.out.print("Teléfono del profesor ([6, 7 u 9] y 8 números): ");
         String telefono = scanner.nextLine();
 
-        System.out.print("Email del profesor (cadena@profesor.es): ");
+        System.out.print("Email del profesor (email@profesor.es): ");
         String email = scanner.nextLine();
 
         System.out.print("Número de documento del profesor (DNI o NIE): ");
@@ -227,25 +218,56 @@ public class GestionEducacional {
 
         System.out.print("¿Es tutor? (0: no; 1: sí): ");
         boolean esTutor = scanner.nextInt() == 1;
+        scanner.nextLine(); 
 
         System.out.print("Sueldo del profesor (>0): ");
         double sueldo = scanner.nextDouble();
+        scanner.nextLine(); 
 
         System.out.print("Días de asuntos propios del profesor (>=0): ");
         int diasAsuntosPropios = scanner.nextInt();
+        scanner.nextLine();
 
         return new Profesor(nombre, primerApellido, segundoApellido, telefono,
                 email, numeroDocumento, esTutor, sueldo, diasAsuntosPropios);
     }
+    
+	
 
-    public static String[] getIdsProfesores() {
-        return getIdsProfesores();
-    }
+    private static void consultarDatosProfesores(Profesor[] profesores2, Scanner scanner) {
+    	if (numProfesores > 0) {
+            System.out.println("Listado de Profesores:");
+            for (int i = 0; i < numProfesores; i++) {
+                System.out.println((i + 1) + ". " + profesores[i].getIdProfesor() + " # " + ( profesores[i]).getNombreCompleto());
+            }
 
-  
-    private static void consultarDatosProfesores(Profesor[] profesores, Scanner scanner) {
-      
-    }
+            System.out.print("Escoger profesor (0: Volver al menú anterior): ");
+            int seleccion = scanner.nextInt();
+
+            if (seleccion > 0 && seleccion <= numProfesores) {
+                Profesor profesorSeleccionado = (ProyectoEducacion.Profesor) Profesor[seleccion - 1];
+                System.out.println("INFO profesor:");
+                System.out.println("ID: " + profesorSeleccionado.getIdProfesor());
+                System.out.println("Nombre: " + profesorSeleccionado.getNombre());
+                System.out.println("Apellido1: " + profesorSeleccionado.getPrimerApellido());
+                System.out.println("Apellido2: " + profesorSeleccionado.getSegundoApellido());
+                System.out.println("Teléfono: " + profesorSeleccionado.getTelefono());
+                System.out.println("Email: " + profesorSeleccionado.getEmail());
+                System.out.println("Documento: " + profesorSeleccionado.getNumeroDocumento());
+                System.out.println("Tutor: " + profesorSeleccionado.isEsTutor());
+                System.out.println("Sueldo: " + profesorSeleccionado.getSueldo());
+                System.out.println("Dias de asuntos propios: " + profesorSeleccionado.getDiasAsuntosPropios());
+                
+            } else if (seleccion != 0) {
+                System.out.println("Selección no válida.");
+            }
+        } else {
+            System.out.println("No hay profesores registrados en el sistema.");
+        }
+		
+	}
+
+
 
   
 
@@ -305,43 +327,154 @@ public class GestionEducacional {
 
 
 	private static void desmatricularAlumnoAsignatura(Asignatura[] asignaturas2, Alumno[] alumnos2, Scanner scanner) {
-		// TODO Auto-generated method stub
+		    System.out.print("Introduce el código de la asignatura: ");
+		    String codigoAsignatura = scanner.nextLine();
+		    System.out.print("Introduce el DNI del alumno a desmatricular: ");
+		    String dniAlumno = scanner.nextLine();
+
+		    for (Asignatura asignatura : asignaturas) {
+		        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
+		            for (Alumno alumno : alumnos) {
+		                if (alumno != null && alumno.getDni().equals(dniAlumno)) {
+		                    if (asignatura.desmatricularAlumno(alumno)) {
+		                        System.out.println("Alumno desmatriculado de la asignatura con éxito.");
+		                        return;
+		                    } else {
+		                        System.out.println("El alumno no está matriculado en esta asignatura.");
+		                        return;
+		                    }
+		                }
+		            }
+		            System.out.println("No se encontró ningún alumno con el DNI " + dniAlumno + ".");
+		            return;
+		        }
+		    }
+		    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
+		}
 		
-	}
+	
 
 
 
 	private static void borrarAsignatura(Asignatura[] asignaturas2, Scanner scanner) {
-		// TODO Auto-generated method stub
 		
+		    System.out.print("Introduce el código de la asignatura a borrar: ");
+		    String codigoAsignatura = scanner.nextLine();
+
+		    for (int i = 0; i < asignaturas.length; i++) {
+		        if (asignaturas[i] != null && asignaturas[i].getCodigo().equals(codigoAsignatura)) {
+		            asignaturas[i] = null;
+		            System.out.println("Asignatura borrada con éxito.");
+		            return;
+		        }
+		    }
+		    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
+		}
+		
+	
+
+
+
+	private static void ponerNotaAlumnoAsignatura(Asignatura[] asignaturas, Alumno[] alumnos, Scanner scanner) {
+	    System.out.print("Introduce el código de la asignatura: ");
+	    String codigoAsignatura = scanner.nextLine();
+	    System.out.print("Introduce el DNI del alumno: ");
+	    String dniAlumno = scanner.nextLine();
+
+	    for (Asignatura asignatura : asignaturas) {
+	        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
+	            for (Alumno alumno : alumnos) {
+	                if (alumno != null && alumno.getDni().equals(dniAlumno)) {
+	                    System.out.print("Introduce la nota del alumno en la asignatura: ");
+	                    double nota = scanner.nextDouble();
+	                    scanner.nextLine(); 
+
+	                    if (asignatura.añadirNotaAlumno(alumno, nota)) {
+	                        System.out.println("Nota asignada con éxito.");
+	                        return;
+	                    } else {
+	                        System.out.println("El alumno no está matriculado en esta asignatura.");
+	                        return;
+	                    }
+	                }
+	            }
+	            System.out.println("No se encontró ningún alumno con el DNI " + dniAlumno + ".");
+	            return;
+	        }
+	    }
+	    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
 	}
 
 
 
-	private static void ponerNotaAlumnoAsignatura(Asignatura[] asignaturas2, Alumno[] alumnos2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
+	private static void matricularAlumnoAsignatura(Asignatura[] asignaturas, Alumno[] alumnos, Scanner scanner) {
+	    System.out.print("Introduce el código de la asignatura: ");
+	    String codigoAsignatura = scanner.nextLine();
+	    System.out.print("Introduce el DNI del alumno: ");
+	    String dniAlumno = scanner.nextLine();
+
+	    for (Asignatura asignatura : asignaturas) {
+	        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
+	            for (Alumno alumno : alumnos) {
+	                if (alumno != null && alumno.getDni().equals(dniAlumno)) {
+	                    if (asignatura.matricularAlumno(alumno)) {
+	                        System.out.println("Alumno matriculado con éxito.");
+	                        return;
+	                    } else {
+	                        System.out.println("El alumno ya está matriculado en esta asignatura.");
+	                        return;
+	                    }
+	                }
+	            }
+	            System.out.println("No se encontró ningún alumno con el DNI " + dniAlumno + ".");
+	            return;
+	        }
+	    }
+	    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
 	}
 
 
 
-	private static void matricularAlumnoAsignatura(Asignatura[] asignaturas2, Alumno[] alumnos2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
+	private static void asignarProfesorAsignatura(Asignatura[] asignaturas, Profesor[] profesores, Scanner scanner) {
+	    System.out.print("Introduce el código de la asignatura: ");
+	    String codigoAsignatura = scanner.nextLine();
+	    System.out.print("Introduce el DNI del profesor: ");
+	    String dniProfesor = scanner.nextLine();
+
+	    for (Asignatura asignatura : asignaturas) {
+	        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
+	            for (Profesor profesor : profesores) {
+	                if (profesor != null && profesor.getDni().equals(dniProfesor)) {
+	                    if (asignatura.asignarProfesor(profesor)) {
+	                        System.out.println("Profesor asignado con éxito a la asignatura.");
+	                        return;
+	                    } else {
+	                        System.out.println("La asignatura ya tiene un profesor asignado.");
+	                        return;
+	                    }
+	                }
+	            }
+	            System.out.println("No se encontró ningún profesor con el DNI " + dniProfesor + ".");
+	            return;
+	        }
+	    }
+	    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
 	}
 
 
 
-	private static void asignarProfesorAsignatura(Asignatura[] asignaturas2, Profesor[] profesores2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
-	}
+	private static void consultarDatosAsignaturas(Asignatura[] asignaturas, Scanner scanner) {
+	    System.out.print("Introduce el código de la asignatura que deseas consultar: ");
+	    String codigoAsignatura = scanner.nextLine();
 
-
-
-	private static void consultarDatosAsignaturas(Asignatura[] asignaturas2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
+	    for (Asignatura asignatura : asignaturas) {
+	        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
+	            System.out.println("Nombre: " + asignatura.getNombre());
+	            System.out.println("Código: " + asignatura.getCodigo());
+	            return;
+	        }
+	    }
+	    System.out.println("No se encontró ninguna asignatura con el código " + codigoAsignatura + ".");
 	}
 
 

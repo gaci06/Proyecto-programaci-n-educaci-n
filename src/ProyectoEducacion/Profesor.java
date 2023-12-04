@@ -17,13 +17,14 @@ public class Profesor {
         this.setIdProfesor(generarIdProfesor());
         this.setNombre(nombre);
         this.setPrimerApellido(primerApellido);
+        this.setSegundoApellido(""); 
         this.setTelefono(telefono);
         this.setEmail(email);
         this.setNumeroDocumento(numeroDocumento);
         this.setEsTutor(esTutor);
         this.setSueldo(sueldo);
         this.setDiasAsuntosPropios(diasAsuntosPropios);
-        this.setSegundoApellido(""); 
+        
     }
 
    
@@ -158,5 +159,16 @@ public class Profesor {
 
 	public void setDiasAsuntosPropios(int diasAsuntosPropios) {
 		this.diasAsuntosPropios = diasAsuntosPropios;
+	}
+	public int getNombreCompleto() {
+		
+		return getNombreCompleto();
+	}
+
+
+
+	public Object getDni() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
