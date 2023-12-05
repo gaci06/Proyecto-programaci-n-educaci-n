@@ -30,13 +30,19 @@ public class Profesor {
    
 
    Profesor(final String nombre2, final String primerApellido2, final String segundoApellido2, final String telefono2, final String email2,
-			final String numeroDocumento2, final boolean esTutor2, final double sueldo2, final int diasAsuntosPropios2) {
+			final String numeroDocumento2, final boolean esTutor2, final double sueldo2, final String diasAsuntosPropios2) {
 		// TODO Auto-generated constructor stub
 	}
 
 
 
-	private String generarIdProfesor() {
+	public Profesor() {
+	// TODO Auto-generated constructor stub
+}
+
+
+
+	String generarIdProfesor() {
         contadorProfesores++;
         return "PROF" + String.format("%04d", contadorProfesores);
     }

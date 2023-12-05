@@ -3,7 +3,7 @@ package ProyectoEducacion;
 public class Alumno {
     private static int contadorAlumnos = 0;
 
-    private String dniAlumno;
+    private String idAlumno;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -13,7 +13,7 @@ public class Alumno {
     private String nombreCiclo;
 
     public Alumno (String nombre, String primerApellido,String segundoApellido , String telefono, String email, String numeroDocumento, String nombreCiclo) {
-        this.getdniAlumno();
+        this.getidAlumno();
         this.setNombre(nombre);
         this.setPrimerApellido(primerApellido);
         this.setSegundoApellido(segundoApellido);
@@ -24,15 +24,15 @@ public class Alumno {
         
     }
 
-	public String getdniAlumno() {
+	public String getidAlumno() {
         contadorAlumnos++;
         return "ALUM" + String.format("%04d", contadorAlumnos);
     }
 
 	
 
-	public void setDniAlumno(String dniAlumno) {
-		this.dniAlumno = dniAlumno;
+	public void setidAlumno(String dniAlumno) {
+		this.setidAlumno(dniAlumno);
 	}
 	
 
@@ -128,13 +128,4 @@ public class Alumno {
 	}
 
 
-
-	public Object getDni() {
-		
-		return null;
-	}
-
-
-
-	
 }

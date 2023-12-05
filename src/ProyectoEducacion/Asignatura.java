@@ -14,7 +14,7 @@ public class Asignatura {
 
 	private static final String dniAlumno = null;
 
-    public Asignatura(String idProfesorAsignado, String nombre, String codigo) {
+    public Asignatura(String idProfesorAsignado, String nombre) {
         this.setIdAsignatura(generarIdAsignatura());
         this.setIdProfesorAsignado(idProfesorAsignado);
         this.setNombre(nombre);
@@ -108,14 +108,14 @@ public class Asignatura {
 
 
 	public boolean matricularAlumno(Alumno alumno) {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 
 
 
 	public boolean asignarProfesor(Profesor profesor) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 }

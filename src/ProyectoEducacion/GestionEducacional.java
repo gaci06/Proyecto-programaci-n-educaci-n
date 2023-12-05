@@ -8,6 +8,7 @@ public class GestionEducacional {
     private static final int MAX_ASIGNATURAS = 20;
     private static final int MAX_PROFESORES = 15;
 	private static final Object[] Profesor = null;
+	private static final Object idAlumno = null;
 
   
     private static Alumno[] alumnos = new Alumno[MAX_ALUMNOS];
@@ -128,7 +129,7 @@ public class GestionEducacional {
         if (numAlumnos > 0) {
             System.out.println("Listado de alumnos:");
             for (int i = 0; i < numAlumnos; i++) {
-                System.out.println((i + 1) + ". " + alumnos[i].getDniAlumno() + " # " + alumnos[i].getNombreCompleto());
+                System.out.println((i + 1) + ". " + alumnos[i].getidAlumno() + " # " + alumnos[i].getNombreCompleto());
             }
 
             System.out.print("Escoger alumno (0: Volver al menú anterior): ");
@@ -137,7 +138,7 @@ public class GestionEducacional {
             if (seleccion > 0 && seleccion <= numAlumnos) {
                 Alumno alumnoSeleccionado = alumnos[seleccion - 1];
                 System.out.println("INFO ALUMNO:");
-                System.out.println("DNI: " + alumnoSeleccionado.generardniAlumno());
+                System.out.println("DNI: " + alumnoSeleccionado.getidAlumno());
                 System.out.println("Nombre: " + alumnoSeleccionado.getNombre());
                 System.out.println("Apellido1: " + alumnoSeleccionado.getPrimerApellido());
                 System.out.println("Apellido2: " + alumnoSeleccionado.getSegundoApellido());
@@ -225,14 +226,14 @@ public class GestionEducacional {
         scanner.nextLine(); 
 
         System.out.print("Días de asuntos propios del profesor (>=0): ");
-        int diasAsuntosPropios = scanner.nextInt();
+        String diasAsuntosPropios = scanner.nextLine();
         scanner.nextLine();
 
         return new Profesor(nombre, primerApellido, segundoApellido, telefono,
                 email, numeroDocumento, esTutor, sueldo, diasAsuntosPropios);
+        
+        
     }
-    
-	
 
     private static void consultarDatosProfesores(Profesor[] profesores2, Scanner scanner) {
     	if (numProfesores > 0) {
@@ -247,7 +248,7 @@ public class GestionEducacional {
             if (seleccion > 0 && seleccion <= numProfesores) {
                 Profesor profesorSeleccionado = (ProyectoEducacion.Profesor) Profesor[seleccion - 1];
                 System.out.println("INFO profesor:");
-                System.out.println("ID: " + profesorSeleccionado.getIdProfesor());
+                System.out.println("ID: " + profesorSeleccionado.generarIdProfesor());
                 System.out.println("Nombre: " + profesorSeleccionado.getNombre());
                 System.out.println("Apellido1: " + profesorSeleccionado.getPrimerApellido());
                 System.out.println("Apellido2: " + profesorSeleccionado.getSegundoApellido());
@@ -264,8 +265,10 @@ public class GestionEducacional {
         } else {
             System.out.println("No hay profesores registrados en el sistema.");
         }
+    
 		
-	}
+    	}
+	
 
 
 
@@ -335,7 +338,7 @@ public class GestionEducacional {
 		    for (Asignatura asignatura : asignaturas) {
 		        if (asignatura != null && asignatura.getCodigo().equals(codigoAsignatura)) {
 		            for (Alumno alumno : alumnos) {
-		                if (alumno != null && alumno.getDni().equals(dniAlumno)) {
+		                if (alumno != null && alumno.getidAlumno().equals(idAlumno)) {
 		                    if (asignatura.desmatricularAlumno(alumno)) {
 		                        System.out.println("Alumno desmatriculado de la asignatura con éxito.");
 		                        return;
@@ -479,9 +482,25 @@ public class GestionEducacional {
 
 
 
-	private static void añadirAsignatura(Asignatura[] asignaturas2, Profesor[] profesores2, Scanner scanner) {
-		// TODO Auto-generated method stub
-		
+	private static void añadirAsignatura(Asignatura[] asignaturas, Profesor[] profesores, Scanner scanner) {
+	    System.out.print("Introduce el nombre de la asignatura: ");
+	    String nombre = scanner.nextLine();
+	    System.out.print("Introduce el código de la asignatura: ");
+	    String codigo = scanner.nextLine();
+	    
+
+	    
+	    Asignatura nuevaAsignatura = new Asignatura(nombre, codigo);
+
+	    
+	    for (int i = 0; i < asignaturas.length; i++) {
+	        if (asignaturas[i] == null) {
+	            asignaturas[i] = nuevaAsignatura;
+	            System.out.println("Asignatura añadida con éxito.");
+	            return;
+	        }
+	    }
+	    System.out.println("No se pudo añadir la asignatura, el array está lleno.");
 	}
 }
 
