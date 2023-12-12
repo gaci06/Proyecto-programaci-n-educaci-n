@@ -12,7 +12,7 @@ public class Asignatura {
  
     private static final int MAX_NOTAS = 50;
 
-	private static final String dniAlumno = null;
+	private static final String idAlumno = null;
 
     public Asignatura(String idProfesorAsignado, String nombre) {
         this.setIdAsignatura(generarIdAsignatura());
@@ -33,28 +33,29 @@ public class Asignatura {
  
     public boolean añadirNotaAlumno(Alumno alumno, double nota) {
         if (numNotas < MAX_NOTAS) {
-            notasAlumnos[numNotas] = new NotaAlumno(dniAlumno, nota);
+            notasAlumnos[numNotas] = new NotaAlumno(alumno.getNumeroDocumento(), nota); 
             numNotas++;
+            return true; 
         } else {
             System.out.println("No se puede añadir más notas. Máximo alcanzado.");
+            return false;
         }
-		return false;
     }
 
    
     public boolean desmatricularAlumno(Alumno alumno) {
         for (int i = 0; i < numNotas; i++) {
-            if (notasAlumnos[i].getdniAlumno().equals(alumno)) {
+            if (notasAlumnos[i].getNumeroDocumento().equals(alumno.getNumeroDocumento())) { 
                 for (int j = i; j < numNotas - 1; j++) {
                     notasAlumnos[j] = notasAlumnos[j + 1];
                 }
                 numNotas--;
-                System.out.println("Desmatriculación exitosa para el alumno " + alumno);
-                return true;
+                System.out.println("Desmatriculación exitosa para el alumno " + alumno.getNombre());
+                return true; 
             }
         }
-        System.out.println("El alumno " + alumno + " no está matriculado en esta asignatura.");
-		return false;
+        System.out.println("El alumno " + alumno.getNombre() + " no está matriculado en esta asignatura.");
+        return false; 
     }
 
 

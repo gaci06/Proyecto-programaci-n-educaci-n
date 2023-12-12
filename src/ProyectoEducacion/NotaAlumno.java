@@ -11,7 +11,7 @@ public class NotaAlumno {
 
 	}
 
-	public Object getdniAlumno() {
+	public Object getNumeroDocumento() {
 		// TODO Auto-generated method stub
 		return null;
 	}

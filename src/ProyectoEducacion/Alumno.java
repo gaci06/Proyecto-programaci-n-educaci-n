@@ -12,16 +12,16 @@ public class Alumno {
     private String numeroDocumento;
     private String nombreCiclo;
 
-    public Alumno (String nombre, String primerApellido,String segundoApellido , String telefono, String email, String numeroDocumento, String nombreCiclo) {
-        this.getidAlumno();
+ 
+    public Alumno (String nombre, String primerApellido, String segundoApellido , String telefono, String email, String numeroDocumento, String nombreCiclo) {
+        this.setidAlumno(this.getidAlumno());
         this.setNombre(nombre);
         this.setPrimerApellido(primerApellido);
         this.setSegundoApellido(segundoApellido);
         this.setTelefono(telefono);
         this.setEmail(email);
         this.setNumeroDocumento(numeroDocumento);
-        this.setNombreCiclo(nombreCiclo);
-        
+        this.setNombreCiclo(nombreCiclo);  
     }
 
 	public String getidAlumno() {
@@ -31,8 +31,8 @@ public class Alumno {
 
 	
 
-	public void setidAlumno(String dniAlumno) {
-		this.setidAlumno(dniAlumno);
+	public void setidAlumno(String idAlumno) {
+	    this.setidAlumno(idAlumno);
 	}
 	
 
@@ -122,10 +122,12 @@ public class Alumno {
 
 
 
-	public int getNombreCompleto() {
-		
-		return 0;
-	}
+	public String getNombreCompleto() {
+        return this.nombre + " " + this.primerApellido + " " + this.segundoApellido;
+    }
+
+	
+
 
 
 }

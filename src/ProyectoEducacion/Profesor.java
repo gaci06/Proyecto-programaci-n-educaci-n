@@ -27,20 +27,6 @@ public class Profesor {
         
     }
 
-   
-
-   Profesor(final String nombre2, final String primerApellido2, final String segundoApellido2, final String telefono2, final String email2,
-			final String numeroDocumento2, final boolean esTutor2, final double sueldo2, final String diasAsuntosPropios2) {
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public Profesor() {
-	// TODO Auto-generated constructor stub
-}
-
-
 
 	String generarIdProfesor() {
         contadorProfesores++;
@@ -166,15 +152,10 @@ public class Profesor {
 	public void setDiasAsuntosPropios(int diasAsuntosPropios) {
 		this.diasAsuntosPropios = diasAsuntosPropios;
 	}
-	public int getNombreCompleto() {
+	
+	public String getNombreCompleto() {
+        return this.nombre + " " + this.primerApellido + " " + this.segundoApellido;
+    } 
 		
-		return getNombreCompleto();
-	}
-
-
-
-	public Object getDni() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
 }
